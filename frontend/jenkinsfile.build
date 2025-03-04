@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'master', description: 'Target branch')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: params.BRANCH, url: 'git@github.com:your-username/jenkinsfiles.git', credentialsId: 'github-ssh-key'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'echo Building the project...'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'echo Running tests...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'echo Deploying...'
+            }
+        }
+    }
+}
+
